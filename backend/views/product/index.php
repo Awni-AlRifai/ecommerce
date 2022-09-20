@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-       <?= GridView::widget([
+    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -31,10 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'category.name',
             ],
             [
-                'label' => 'link',
-                'value' => function($model){
-                    return $model->getImageLink();
-                }
+                'attribute' => 'img',
+                'format' => 'html',
+                'label' => 'ImageColumnLable',
+               'value' => function ($model) {
+
+                    return Html::img($model->getImageLink(),['width' => '60px']);
+                },
             ],
             'name',
             'body:ntext',
