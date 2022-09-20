@@ -80,6 +80,31 @@ class Product extends \yii\db\ActiveRecord
     {
         return new \common\models\query\ProductQuery(get_called_class());
     }
+
+    /**
+     * override save methodd
+     */
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $isInsert = $this->isNewRecord;
+        $image_id = Yii::$app->security->generateRandomString(8);
+        $imagePath = Yii::getAlias('@frontend/web/storage/images/'.$image_id.'.jpg');
+        if($isInsert){
+            $this->image_id = $image_id;
+        }
+        $saved = parent::save($runValidation, $attributeNames);
+
+        if(!$saved){
+            return false;
+        }
+        if($isInsert){
+            if(!is_dir(dirname($imagePath))){
+                FileHelper::createDirectory(dirname($imagePath));
+            }
+            $this->image->saveAs($imagePath);
+        }
+
+        return true;
+    }
     
-   
 }
