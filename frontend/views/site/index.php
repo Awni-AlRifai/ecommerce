@@ -1,52 +1,61 @@
 <?php
 
+
 /** @var yii\web\View $this */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'My Yii Application';
 ?>
+   
 <div class="site-index">
-    <div class="p-5 mb-4 bg-transparent rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Congratulations!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-            <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-        </div>
+  <div class="p-1 mb-1 bg-transparent rounded-3">
+    <div class="container-fluid py-5 text-center">
+      <h1 class="display-4">Welcome!</h1>
+      <p class="fs-5 fw-light">You can view our products here.</p>
     </div>
+  </div>
 
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+  <div class="body-content">
+    <div class="container d-flex w-100 justify-content-center mt-50 mb-50">
+      <div class="row">
+      <?php foreach($dataProvider->getModels() as $model){?>
+        <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img-actions">
+                <img
+                  src="<?php echo $model->getImageLink()?>"
+                  class="card-img img-fluid"
+                  width="96"
+                  height="350"
+                  alt=""
+                />
+              </div>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+            <div class="card-body bg-light text-center">
+              <div class="mb-2">
+                <h6 class="font-weight-semibold mb-2">
+                  <a href="<?php echo "/{$model->id}"?>" class="text-default mb-2" data-abc="true"
+                    ><?php echo $model->name?></a
+                  >
+                </h6>
 
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <span href="#" class="text-muted" data-abc="true"
+                  ><?php echo $model->category->name?></span
+                >
+              </div>
+
+              <h3 class="mb-0 font-weight-semibold"><?php echo $model->price?>$</h3>
+
+              <button type="button" class="btn bg-cart">
+                <i class="fa fa-cart-plus mr-2"></i> Add to cart
+              </button>
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+          </div>
         </div>
-
+        <?php } ?>
+      </div>
     </div>
+  </div>
 </div>

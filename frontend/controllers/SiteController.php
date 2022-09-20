@@ -7,6 +7,8 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
+use yii\data\ActiveDataProvider;
+use common\models\Product;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -75,7 +77,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Product::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
