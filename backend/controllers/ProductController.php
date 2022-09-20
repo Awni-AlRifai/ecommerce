@@ -14,7 +14,7 @@ use yii\web\UploadedFile as WebUploadedFile;
 /**
  * ProductController implements the CRUD actions for Product model.
  */
-class ProductController extends Controller
+class ProductController extends SiteController
 {
     /**
      * @inheritDoc

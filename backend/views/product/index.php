@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'img',
                 'format' => 'html',
-                'label' => 'ImageColumnLable',
+                'label' => 'image',
                'value' => function ($model) {
 
                     return Html::img($model->getImageLink(),['width' => '60px']);
