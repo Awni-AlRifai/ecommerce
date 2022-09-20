@@ -106,5 +106,14 @@ class Product extends \yii\db\ActiveRecord
 
         return true;
     }
+
+    /**
+     * gets the image link related to a product.
+     */
+    public function getImageLink()
+    {
+        
+        return  Yii::$app->params['frontendUrl']."storage/images/{$this->image_id}.jpg";
+    }
     
 }
