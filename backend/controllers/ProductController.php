@@ -73,6 +73,7 @@ class ProductController extends SiteController
         ]);
     }
 
+    
     /**
      * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.

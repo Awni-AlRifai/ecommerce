@@ -36,7 +36,7 @@ $this->title = 'My Yii Application';
             <div class="card-body bg-light text-center">
               <div class="mb-2">
                 <h6 class="font-weight-semibold mb-2">
-                  <a href="<?php echo "/{$model->id}"?>" class="text-default mb-2" data-abc="true"
+                  <a href="<?php echo "site/view?id={$model->id}"?>" class="text-default mb-2" data-abc="true"
                     ><?php echo $model->name?></a
                   >
                 </h6>
