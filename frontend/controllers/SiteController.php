@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\controllers;
+
 use Yii;
 use yii\data\ActiveDataProvider;
 use common\models\Product;
@@ -8,6 +9,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\common\Cart;
+
 /**
  * Site controller
  */
@@ -39,7 +41,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
-                    
+
                 ],
             ],
         ];
@@ -102,6 +104,11 @@ class SiteController extends Controller
         ]);
     }
 
+    /**
+     * Displays car page
+     * 
+     * @return string|\yii\web\Response
+     */
     public function actionCart()
     {
         $cart = new Cart();
@@ -111,25 +118,35 @@ class SiteController extends Controller
         return $this->render('cart', ['cart' => $cartItems, 'total' => $total]);
     }
 
-    public function actionAddcart($id,$quantity)
+    /**
+     * Adds a product to the cart
+     * @param int $id product id
+     * @param int $quantity 
+     * 
+     */
+    public function actionAddcart($id, $quantity)
     {
-       
+
         $product = Product::find()
-                    ->where(['id' => $id])
-                    ->one();
-        
+            ->where(['id' => $id])
+            ->one();
+
         $cart = new Cart();
 
-        $modified_cart = $cart->addCart($id,$product,$quantity); 
+        $modified_cart = $cart->addCart($id, $product, $quantity);
         Yii::$app->session['cart'] = $modified_cart;
-          
+
         return $this->actionCart();
     }
 
-    public function actionResetCart($id){
+    /**
+     * End point to reset the cart
+     * @param int $id product id in the cart
+     */
+    public function actionResetCart($id)
+    {
         $cart = new Cart();
         $cart->resetProductQuantity($id);
         return $this->actionCart();
-
     }
 }

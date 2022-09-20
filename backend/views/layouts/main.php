@@ -51,7 +51,8 @@ AppAsset::register($this);
         echo Html::tag('div',Html::a('Signup',['/site/signup'],['class' => ['btn btn-secondary   text-decoration-none']]),['class' => ['d-flex']]);
         echo '</div>';
     } else {
-
+        $menuItems[] =  ['label' => 'Category', 'url' => ['/category']];
+        $menuItems[] =  ['label' => 'Product', 'url' => ['/product']];
         echo Nav::widget([
             'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
             'items' => $menuItems,
@@ -67,12 +68,7 @@ AppAsset::register($this);
     ?>
 </header>
 
-    <?php 
-    if(!Yii::$app->user->isGuest){
-        echo $this->render('_sidebar') ;
-    }
-    
-    ?>
+   
 <main role="main" class="flex-shrink-0">
     <div class="container">
         <?= Breadcrumbs::widget([

@@ -82,25 +82,37 @@ class Product extends \yii\db\ActiveRecord
     }
 
     /**
-     * override save methodd
+     * {@inheritdoc}
+     * Overrides the method save in order to save an image
      */
     public function save($runValidation = true, $attributeNames = null)
     {
+        // check if the record is new
         $isInsert = $this->isNewRecord;
+
         $image_id = Yii::$app->security->generateRandomString(8);
-        $imagePath = Yii::getAlias('@frontend/web/storage/images/'.$image_id.'.jpg');
-        if($isInsert){
+        $imagePath = Yii::getAlias('@frontend/web/storage/images/' . $image_id . '.jpg');
+
+        // set image_id to use it for the name of the saved file
+        if ($isInsert) {
             $this->image_id = $image_id;
         }
+
         $saved = parent::save($runValidation, $attributeNames);
 
-        if(!$saved){
+        if (!$saved) {
             return false;
         }
-        if($isInsert){
-            if(!is_dir(dirname($imagePath))){
+        // save image
+        if ($isInsert) {
+            if (!is_dir(dirname($imagePath))) {
+
+                // create a new directoy if it does not exists
+                // the storage directory is added to the .gitignore in order to have
+                // a clean storage when deploying
                 FileHelper::createDirectory(dirname($imagePath));
             }
+
             $this->image->saveAs($imagePath);
         }
 
@@ -112,8 +124,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getImageLink()
     {
-        
-        return  Yii::$app->params['frontendUrl']."storage/images/{$this->image_id}.jpg";
+
+        return  Yii::$app->params['frontendUrl'] . "storage/images/{$this->image_id}.jpg";
     }
-    
 }

@@ -73,7 +73,7 @@ class ProductController extends SiteController
         ]);
     }
 
-    
+
     /**
      * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -83,7 +83,7 @@ class ProductController extends SiteController
     {
         $model = new Product();
 
-        $model->image = WebUploadedFile::getInstanceByName('image'); 
+        $model->image = WebUploadedFile::getInstanceByName('image');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -92,6 +92,7 @@ class ProductController extends SiteController
         } else {
             $model->loadDefaultValues();
         }
+
         $categories = Category::find()->all();
         return $this->render('create', [
             'model' => $model,
