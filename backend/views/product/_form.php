@@ -41,10 +41,7 @@ use yii\helpers\ArrayHelper;
             <img id="image-preview" class=" border" />
 
     </div>
-    <p>
-        video link
-        <?php echo $model->getImageLink() ?>
-    </p>
+   
     <div class="form-group ms-auto w-25">
         <?= Html::submitButton('Save', ['class' => 'btn d-block btn-success']) ?>
     </div>
