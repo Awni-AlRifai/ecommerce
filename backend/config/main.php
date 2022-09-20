@@ -17,7 +17,6 @@ return [
         ],
     
     ],
-    'name' => "ecommerce",
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
