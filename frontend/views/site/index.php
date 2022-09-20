@@ -6,7 +6,7 @@
 
 $this->title = 'My Yii Application';
 ?>
-   
+
 <div class="site-index">
   <div class="p-1 mb-1 bg-transparent rounded-3">
     <div class="container-fluid py-5 text-center">
@@ -17,43 +17,37 @@ $this->title = 'My Yii Application';
 
   <div class="body-content">
     <div class="container d-flex w-100 justify-content-center mt-50 mb-50">
-      <div class="row">
-      <?php foreach($dataProvider->getModels() as $model){?>
-        <div class="col-md-4 mt-2">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-img-actions">
-                <img
-                  src="<?php echo $model->getImageLink()?>"
-                  class="card-img img-fluid"
-                  width="96"
-                  height="350"
-                  alt=""
-                />
-              </div>
-            </div>
-
-            <div class="card-body bg-light text-center">
-              <div class="mb-2">
-                <h6 class="font-weight-semibold mb-2">
-                  <a href="<?php echo "site/view?id={$model->id}"?>" class="text-default mb-2" data-abc="true"
-                    ><?php echo $model->name?></a
-                  >
-                </h6>
-
-                <span href="#" class="text-muted" data-abc="true"
-                  ><?php echo $model->category->name?></span
-                >
+      <div class="row w-100">
+        <?php foreach ($dataProvider->getModels() as $model) { ?>
+          <div class="col-md-4 mt-2">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-img-actions">
+                  <img src="<?php echo $model->getImageLink() ?>" class="card-img img-fluid" width="96" height="350" alt="" />
+                </div>
               </div>
 
-              <h3 class="mb-0 font-weight-semibold"><?php echo $model->price?>$</h3>
+              <div class="card-body bg-light text-center">
+                <div class="mb-2">
+                  <h6 class="font-weight-semibold mb-2">
+                    <a href="<?php echo "site/view?id={$model->id}" ?>" class="text-default mb-2" data-abc="true"><?php echo $model->name ?></a>
+                  </h6>
 
-              <button type="button" class="btn bg-cart">
-                <i class="fa fa-cart-plus mr-2"></i> Add to cart
-              </button>
+                  <span href="#" class="text-muted" data-abc="true"><?php echo $model->category->name ?></span>
+                </div>
+
+                <h3 class="mb-0 font-weight-semibold"><?php echo $model->price ?>$</h3>
+                <form action="<?php echo Yii::$app->params['frontendUrl'].'site/addcart' ?> ">
+                  <input type="hidden" name="id" value="<?php echo $model->id ?>">
+                  <input type="hidden" name="quantity" value="1">
+
+                  <button type="submit" class="btn bg-cart">
+                    <i class="fa fa-cart-plus mr-2"></i> Add to cart
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
         <?php } ?>
       </div>
     </div>

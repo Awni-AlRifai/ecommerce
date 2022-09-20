@@ -1,23 +1,13 @@
 <?php
 
 namespace frontend\controllers;
-
-use frontend\models\ResendVerificationEmailForm;
-use frontend\models\VerifyEmailForm;
 use Yii;
-use yii\base\InvalidArgumentException;
-use yii\web\BadRequestHttpException;
 use yii\data\ActiveDataProvider;
 use common\models\Product;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-
+use frontend\common\Cart;
 /**
  * Site controller
  */
@@ -49,6 +39,7 @@ class SiteController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
+                    
                 ],
             ],
         ];
@@ -109,5 +100,36 @@ class SiteController extends Controller
                 ->where(['id' => $id])
                 ->one(),
         ]);
+    }
+
+    public function actionCart()
+    {
+        $cart = new Cart();
+        $cartItems = Yii::$app->session['cart'];
+        $total = $cart->findTotalAmount($cartItems);
+
+        return $this->render('cart', ['cart' => $cartItems, 'total' => $total]);
+    }
+
+    public function actionAddcart($id,$quantity)
+    {
+       
+        $product = Product::find()
+                    ->where(['id' => $id])
+                    ->one();
+        
+        $cart = new Cart();
+
+        $modified_cart = $cart->addCart($id,$product,$quantity); 
+        Yii::$app->session['cart'] = $modified_cart;
+          
+        return $this->actionCart();
+    }
+
+    public function actionResetCart($id){
+        $cart = new Cart();
+        $cart->resetProductQuantity($id);
+        return $this->actionCart();
+
     }
 }
